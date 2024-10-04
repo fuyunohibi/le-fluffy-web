@@ -155,7 +155,7 @@ export const Navbar = () => {
             }}
             whileHover={{ scale: 1.1 }}
             className="text-gray-900 flex flex-col items-center"
-            onClick={() => setIsSearchVisible(!isSearchVisible)}
+            onClick={() => setIsSearchVisible(true)}
           >
             <Search color="#111827" />
           </motion.div>
@@ -169,6 +169,8 @@ export const Navbar = () => {
           animate={{ opacity: 1 }} 
           exit={{ opacity: 0 }} 
           transition={{ duration: 0.3 }} 
+          onClick={() => setIsSearchVisible(false)}
+
         >
           <motion.div
             className="p-6 rounded-lg flex flex-col items-center mt-40"

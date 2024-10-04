@@ -1,7 +1,4 @@
-
 import React, { useState } from 'react'
-
-
 
 interface SearchBarProps {
   onSearchSubmit: (query: string) => void;
