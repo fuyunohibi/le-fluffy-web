@@ -63,7 +63,7 @@ export const Navbar = () => {
             whileHover={{ scale: 1.1 }}
             className="text-blue-500 flex flex-col items-center"
             >
-                <Link href="/login" className="text-blue-600">Login</Link>  
+                <Link href="/auth" className="text-blue-600">Login</Link>  
             </motion.div>
 
             <motion.div
@@ -74,7 +74,7 @@ export const Navbar = () => {
             whileHover={{ scale: 1.1 }}
             className="text-blue-500 flex flex-col items-center"
             >
-                <Link href="/register" className="text-blue-600">Sign Up</Link>
+                <Link href="/auth" className="text-blue-600">Sign Up</Link>
             </motion.div>
             
           </>
@@ -124,7 +124,7 @@ export const Navbar = () => {
             whileHover={{ scale: 1.1 }}
             className="text-blue-500 flex flex-col items-center"
             >
-            <Link href="/login" className="flex flex-col items-center">
+            <Link href="/auth" className="flex flex-col items-center">
                 <User color="#3b82f6" />
             </Link>
             </motion.div>
