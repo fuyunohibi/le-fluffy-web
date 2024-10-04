@@ -7,6 +7,7 @@ export default function SignUpForm() {
         type="text"
         placeholder="Name"
         className="mb-4 px-4 py-2 w-64 bg-gray-100 border border-gray-300 rounded-lg"
+        onClick={() => console.log("Name")}
       />
       <input
         type="email"

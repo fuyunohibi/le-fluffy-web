@@ -1,5 +1,6 @@
 const MOCK_PETS_DATA = [
   {
+    id: 1,
     image: "https://images.unsplash.com/photo-1517423440428-a5a00ad493e8",
     name: "Bella",
     description:
@@ -9,6 +10,7 @@ const MOCK_PETS_DATA = [
     type: "Dog",
   },
   {
+    id: 2,
     image: "https://images.unsplash.com/photo-1603302827894-4b52a956c1d8",
     name: "Coco",
     description: "A calm and friendly Cockatiel with beautiful feathers.",
@@ -17,6 +19,7 @@ const MOCK_PETS_DATA = [
     type: "Bird",
   },
   {
+    id: 3,
     image: "https://images.unsplash.com/photo-1572357606969-04ebccdeb231",
     name: "Thumper",
     description: "An adorable and active rabbit who loves hopping around.",
@@ -25,6 +28,7 @@ const MOCK_PETS_DATA = [
     type: "Rabbit",
   },
   {
+    id: 4,
     image: "https://images.unsplash.com/photo-1560807707-8cc77767d783",
     name: "Rocky",
     description:
@@ -34,6 +38,7 @@ const MOCK_PETS_DATA = [
     type: "Dog",
   },
   {
+    id: 5,
     image: "https://images.unsplash.com/photo-1555685812-4b74353e02ec",
     name: "Max",
     description: "A calm and gentle German Shepherd, great for families.",
@@ -42,6 +47,7 @@ const MOCK_PETS_DATA = [
     type: "Dog",
   },
   {
+    id: 6,
     image: "https://images.unsplash.com/photo-1602451295309-6935a27b4a9a",
     name: "Jasper",
     description: "A relaxed and friendly Ball Python with beautiful scales.",
@@ -50,6 +56,7 @@ const MOCK_PETS_DATA = [
     type: "Reptile",
   },
   {
+    id: 7,
     image: "https://images.unsplash.com/photo-1574158622682-e40e69881006",
     name: "Luna",
     description:
@@ -59,6 +66,7 @@ const MOCK_PETS_DATA = [
     type: "Cat",
   },
   {
+    id: 8,
     image: "https://images.unsplash.com/photo-1594961678779-0f1e1be49659",
     name: "Snowball",
     description: "A fluffy and gentle Angora rabbit with a calm demeanor.",
@@ -67,6 +75,7 @@ const MOCK_PETS_DATA = [
     type: "Rabbit",
   },
   {
+    id: 9,
     image: "https://images.unsplash.com/photo-1580910051071-6b6fe04f4c54",
     name: "Flash",
     description: "A fast and active Leopard Gecko with unique patterns.",
@@ -75,6 +84,7 @@ const MOCK_PETS_DATA = [
     type: "Reptile",
   },
   {
+    id: 10,
     image: "https://images.unsplash.com/photo-1518133291463-fc0935ed8e0b",
     name: "Bailey",
     description: "A playful and loving Shih Tzu with a soft, fluffy coat.",
@@ -83,6 +93,7 @@ const MOCK_PETS_DATA = [
     type: "Dog",
   },
   {
+    id: 11,
     image: "https://images.unsplash.com/photo-1581579184944-22d80d0272a5",
     name: "Spike",
     description: "A quiet and low-maintenance Bearded Dragon.",
@@ -91,6 +102,7 @@ const MOCK_PETS_DATA = [
     type: "Reptile",
   },
   {
+    id: 12,
     image: "https://images.unsplash.com/photo-1568605114967-8130f3a36994",
     name: "Oliver",
     description: "An inquisitive and active Parrot who loves to mimic sounds.",
@@ -99,6 +111,7 @@ const MOCK_PETS_DATA = [
     type: "Bird",
   },
   {
+    id: 13,
     image: "https://images.unsplash.com/photo-1537151675188-d7bacb3af9c9",
     name: "Daisy",
     description: "Gentle and affectionate Persian cat who loves to cuddle.",
@@ -107,6 +120,7 @@ const MOCK_PETS_DATA = [
     type: "Cat",
   },
   {
+    id: 14,
     image: "https://images.unsplash.com/photo-1603415528313-8d4eb089acb4",
     name: "Patches",
     description: "An adorable Holland Lop rabbit with floppy ears.",
@@ -115,6 +129,7 @@ const MOCK_PETS_DATA = [
     type: "Rabbit",
   },
   {
+    id: 15,
     image: "https://images.unsplash.com/photo-1543852786-1cf6624b9987",
     name: "Chloe",
     description:
@@ -124,6 +139,7 @@ const MOCK_PETS_DATA = [
     type: "Cat",
   },
   {
+    id: 16,
     image: "https://images.unsplash.com/photo-1557976609-df9f7ec1c9b3",
     name: "Milo",
     description: "A happy-go-lucky Labrador Retriever with a love for water.",
@@ -132,6 +148,7 @@ const MOCK_PETS_DATA = [
     type: "Dog",
   },
   {
+    id: 17,
     image: "https://images.unsplash.com/photo-1526793841014-9e22fcd4e6d0",
     name: "Sunny",
     description: "A friendly and colorful Sun Conure who loves attention.",
@@ -140,6 +157,7 @@ const MOCK_PETS_DATA = [
     type: "Bird",
   },
   {
+    id: 18,
     image: "https://images.unsplash.com/photo-1582911014185-d2ec09f37d82",
     name: "Slinky",
     description: "A curious and sleek Corn Snake, great for reptile lovers.",
@@ -148,6 +166,7 @@ const MOCK_PETS_DATA = [
     type: "Reptile",
   },
   {
+    id: 19,
     image: "https://images.unsplash.com/photo-1511823083683-4edbb00671c1",
     name: "Pepper",
     description: "A playful and vocal African Grey Parrot.",
@@ -156,6 +175,7 @@ const MOCK_PETS_DATA = [
     type: "Bird",
   },
   {
+    id: 20,
     image: "https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9",
     name: "Charlie",
     description:

@@ -13,7 +13,7 @@ export default function SignInForm() {
         placeholder="Password"
         className="mb-4 px-4 py-2 w-64 bg-gray-100 border border-gray-300 rounded-lg"
       />
-      <a href="#" className="text-gray-600 mb-4">
+      <a href="#" className="text-gray-600 mb-4 transition-all duration-300 hover:text-blue-500 hover:underline">
         Forgot your password?
       </a>
       <button className="py-2 px-6 bg-blue-500 text-white rounded-lg font-bold">

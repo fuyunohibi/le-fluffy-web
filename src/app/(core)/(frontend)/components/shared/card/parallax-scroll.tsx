@@ -4,15 +4,8 @@ import { useRef } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { cn } from "../../../utils";
-
-interface PetInfo {
-  image: string;
-  name: string;
-  description: string;
-  sex: string;
-  age: string;
-  type: string;
-}
+import { PetInfo } from "../../../types";
+import Link from "next/link";
 
 const colorScheme: Record<string, { bg: string; border: string }> = {
   Dog: { bg: "bg-blue-100", border: "border-blue-200" },
@@ -63,21 +56,27 @@ export const ParallaxScroll = ({
               key={"grid-1" + idx}
               className="p-6 rounded-lg shadow-lg glassmorphism"
             >
-              <Image
-                src={pet.image}
-                className="h-80 w-full object-cover object-left-top rounded-lg mb-4"
-                height="400"
-                width="400"
-                alt={pet.name}
-              />
-              <h2 className="text-2xl font-bold text-gray-800">{pet.name}</h2>
-              <p className="text-gray-600">{pet.description}</p>
-              <p className="text-gray-600">
-                <span className="font-semibold">Sex:</span> {pet.sex}
-              </p>
-              <p className="text-gray-600">
-                <span className="font-semibold">Age:</span> {pet.age}
-              </p>
+              <Link
+                href={{
+                  pathname: `/pets/${pet.id}`,
+                }}
+              >
+                <Image
+                  src={pet.image}
+                  className="h-80 w-full object-cover object-left-top rounded-lg mb-4"
+                  height="400"
+                  width="400"
+                  alt={pet.name}
+                />
+                <h2 className="text-2xl font-bold text-gray-800">{pet.name}</h2>
+                <p className="text-gray-600">{pet.description}</p>
+                <p className="text-gray-600">
+                  <span className="font-semibold">Sex:</span> {pet.sex}
+                </p>
+                <p className="text-gray-600">
+                  <span className="font-semibold">Age:</span> {pet.age}
+                </p>
+              </Link>
             </motion.div>
           ))}
         </div>
