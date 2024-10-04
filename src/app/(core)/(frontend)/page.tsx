@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { ParallaxScroll } from "./components/shared/card/parallax-scroll";
 import MOCK_PETS_DATA from "./constants/mocks/mock-pets-data";
 import { PET_CATEGORIES } from "./constants";
+import { Heart } from 'lucide-react';
 
 const HomePage = () => {
   const images = [

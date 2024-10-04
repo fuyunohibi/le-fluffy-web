@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { WavyBackground } from "./components/shared/background/wavy-background";
+import { Navbar } from "./components/shared/navbar/Navbar";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -29,6 +30,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white`}
       >
+        <Navbar />
         <WavyBackground>{children}</WavyBackground>
       </body>
     </html>
