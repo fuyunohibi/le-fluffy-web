@@ -47,6 +47,7 @@ export default function App() {
           animate={{ x: signIn ? "0%" : "-50%" }}
           transition={{ duration: 0.2 }}
           className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center"
+          style={{ zIndex: 2 }}
         >
           <div className="absolute top-0 left-1/2 w-1/2 h-full bg-gradient-to-r from-blue-500 to-cyan-500 text-white flex items-center justify-center align-middle">
             <div className="p-8 text-center">
