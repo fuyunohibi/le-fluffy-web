@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Heart, House, User } from "lucide-react";
+import { CirclePlus, Heart, House, User } from "lucide-react";
 
 export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -118,7 +118,7 @@ export const Navbar = () => {
             className="text-gray-900 flex flex-col items-center"
           >
             <Link href="/posting" className="flex flex-col items-center">
-              <Heart color="#111827" />
+              <CirclePlus color="#111827" />
             </Link>
           </motion.div>
 
