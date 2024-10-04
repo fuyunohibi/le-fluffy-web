@@ -8,6 +8,16 @@ export default function App() {
   const [signIn, toggle] = useState(true);
 
   return (
+    <motion.div
+      initial={{ opacity: 0.0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{
+        delay: 0.3,
+        duration: 0.8,
+        ease: "easeInOut",
+      }}
+      className="flex flex-1 flex-col gap-4 items-center justify-center p-20 pt-24"
+    >
     <div className="bg-white rounded-lg shadow-lg w-[678px] max-w-full min-h-[400px] relative overflow-hidden">
       {/* Sign Up Form */}
       <motion.div
@@ -57,5 +67,6 @@ export default function App() {
       </div>
       </motion.div>
     </div>
+    </motion.div>
   );
 }
