@@ -2,17 +2,26 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { CirclePlus, Heart, House, User } from "lucide-react";
-
+import { CirclePlus, Heart, House, Search, User } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { SearchBar } from "./search-bar";
 export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isSearchVisible, setIsSearchVisible] = useState(false); // New state for search box visibility
+  const [searchInput, setSearchInput] = useState(""); // New state for search input
+  const router = useRouter();
 
-  const handleLogout = () => {
-    
+  const handleLogout = () => { 
     setIsAuthenticated(false); 
   };
 
+  const handleSearchSubmit = (searchInput: string | number | boolean) => {
+    if (searchInput) {
+      router.push(`/search/${encodeURIComponent(searchInput)}`);
+      setIsSearchVisible(false); 
+    }
+  };
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
@@ -25,6 +34,27 @@ export const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+
+      if (isSearchVisible) {
+        setIsSearchVisible(false);
+      }
+    };
+  
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isSearchVisible]);
+
+
+
+
 
   return (
     <>
@@ -129,13 +159,38 @@ export const Navbar = () => {
             }}
             whileHover={{ scale: 1.1 }}
             className="text-gray-900 flex flex-col items-center"
+            onClick={() => setIsSearchVisible(!isSearchVisible)}
           >
-            <Link href="/login" className="flex flex-col items-center">
-              <User color="#111827" />
-            </Link>
+            <Search color="#111827" />
           </motion.div>
         </motion.nav>
       </div>
+
+      {isSearchVisible && (
+        <motion.div
+          className="fixed inset-0 bg-gray-800 bg-opacity-75 z-40 flex justify-center items-start"
+          initial={{ opacity: 0 }} 
+          animate={{ opacity: 1 }} 
+          exit={{ opacity: 0 }} 
+          transition={{ duration: 0.3 }} 
+        >
+          <motion.div
+            className="p-6 rounded-lg flex flex-col items-center mt-40"
+            initial={{ scale: 0.8, opacity: 0 }} 
+            animate={{ scale: 1, opacity: 1 }} 
+            exit={{ scale: 0.8, opacity: 0 }} 
+            transition={{
+              type: "spring",
+              stiffness: 300,
+              damping: 20,
+              duration: 0.5, 
+            }}
+          >
+            <SearchBar onSearchSubmit={handleSearchSubmit} />
+          </motion.div>
+        </motion.div>
+      )}
+
     </>
   );
 };
