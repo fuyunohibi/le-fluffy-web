@@ -52,10 +52,6 @@ export const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isSearchVisible]);
 
-
-
-
-
   return (
     <>
       {/* Top Navbar */}
