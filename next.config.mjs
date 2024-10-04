@@ -1,4 +1,9 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  images: {
+    domains: ["images.unsplash.com", "unsplash.com"], // Add your allowed external domain
+  },
+};
 
-export default nextConfig;
+export default nextConfig; // Use export instead of module.exports
+
