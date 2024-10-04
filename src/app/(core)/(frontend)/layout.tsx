@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { WavyBackground } from "./components/shared/background/wavy-background";
-import { Navbar } from "./components/shared/navbar/Navbar";
+import { Navbar } from "./components/shared/navbar/nav-bar";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -16,7 +16,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Le Fluffy",
+  title: "le FLUFFY*",
   description: "Find your missing pet",
 };
 

@@ -14,12 +14,12 @@ interface PetInfo {
   type: string;
 }
 
-// const colorScheme: Record<string, { bg: string; border: string }> = {
-//   Dog: { bg: "bg-blue-100", border: "border-blue-200" },
-//   Cat: { bg: "bg-pink-100", border: "border-pink-200" },
-//   Bird: { bg: "bg-cream-100", border: "border-cream-200" },
-//   Rabbit: { bg: "bg-green-100", border: "border-green-200" },
-// };
+const colorScheme: Record<string, { bg: string; border: string }> = {
+  Dog: { bg: "bg-blue-100", border: "border-blue-200" },
+  Cat: { bg: "bg-pink-100", border: "border-pink-200" },
+  Bird: { bg: "bg-cream-100", border: "border-cream-200" },
+  Rabbit: { bg: "bg-green-100", border: "border-green-200" },
+};
 
 export const ParallaxScroll = ({
   pets,
