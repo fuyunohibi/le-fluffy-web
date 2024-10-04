@@ -66,7 +66,7 @@ export const Navbar = () => {
                 whileHover={{ scale: 1.1 }}
                 className="text-gray-900 font-semibold flex flex-col items-center transition-all hover:underline duration-500"
               >
-                <Link href="/login" className="text-gray-900">
+                <Link href="/auth" className="text-gray-900">
                   Login
                 </Link>
               </motion.div>
@@ -79,7 +79,7 @@ export const Navbar = () => {
                 whileHover={{ scale: 1.1 }}
                 className="text-gray-900 font-semibold flex flex-col items-center transition-all hover:underline duration-500"
               >
-                <Link href="/register" className="text-gray-900">
+                <Link href="/auth" className="text-gray-900">
                   Sign Up
                 </Link>
               </motion.div>
