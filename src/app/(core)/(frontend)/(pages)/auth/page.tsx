@@ -6,6 +6,7 @@ import SignInForm from "../../components/auth/SignInForm";
 
 export default function App() {
   const [signIn, toggle] = useState(true);
+  const [overlayZIndex, setOverlayZIndex] = useState(1); 
 
   return (
     <motion.div
@@ -21,11 +22,13 @@ export default function App() {
       <div className="bg-white rounded-lg shadow-lg w-[678px] max-w-full min-h-[400px] relative overflow-hidden">
         {/* Sign Up Form */}
         <motion.div
-          initial={{ x: "100%", opacity: 0 }}  // Initially hidden off the screen to the right
-          animate={{ x: signIn ? "0%" : "100%", opacity: signIn ? 0 : 1 }}  // Move in and out depending on the signIn state
-          transition={{ duration: 0.2 }}  // Smooth transition
-          className="absolute top-0 left-0 w-1/2 h-full p-8 flex flex-col justify-center items-center bg-white"
-          style={{ zIndex: signIn ? 0 : 1 }}  // Set z-index based on the signIn state
+          initial={{ x: "100%", opacity: 0 }}  
+          animate={{ x: signIn ? "0%" : "100%", opacity: signIn ? 0 : 1 }}  
+          transition={{ duration: 0.2 }} 
+          className={`absolute top-0 left-0 w-1/2 h-full p-8 flex flex-col justify-center items-center bg-white ${
+            signIn ? "hidden" : "block"
+          }`}
+          style={{ zIndex: signIn ? 0 : 2 }} 
         >
           <SignUpForm />
         </motion.div>
@@ -35,8 +38,10 @@ export default function App() {
           initial={{ x: signIn ? "0%" : "-100%", opacity: signIn ? 1 : 0 }}
           animate={{ x: signIn ? "0%" : "100%", opacity: signIn ? 1 : 0 }}
           transition={{ duration: 0.2 }}
-          className="absolute top-0 left-0 w-1/2 h-full p-8 flex flex-col justify-center items-center bg-white"
-          style={{ zIndex: signIn ? 1 : 0 }}  // Set z-index for the other form
+          className={`absolute top-0 left-0 w-1/2 h-full p-8 flex flex-col justify-center items-center bg-white ${
+            signIn ? "block" : "hidden"
+          }`}
+          style={{ zIndex: signIn ? 2 : 0 }} 
         >
           <SignInForm />
         </motion.div>
@@ -47,7 +52,9 @@ export default function App() {
           animate={{ x: signIn ? "0%" : "-50%" }}
           transition={{ duration: 0.2 }}
           className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center"
-          style={{ zIndex: 2 }}
+          style={{ zIndex: overlayZIndex }}
+          onAnimationStart={() => setOverlayZIndex(10)} 
+          onAnimationComplete={() => setOverlayZIndex(1)}
         >
           <div className="absolute top-0 left-1/2 w-1/2 h-full bg-gradient-to-r from-blue-500 to-cyan-500 text-white flex items-center justify-center align-middle">
             <div className="p-8 text-center">
