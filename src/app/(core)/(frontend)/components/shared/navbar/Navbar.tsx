@@ -10,7 +10,7 @@ export const Navbar = () => {
 
   const handleLogout = () => {
     
-    setIsAuthenticated(false); 
+    setIsAuthenticated(true); 
   };
 
   useEffect(() => {
@@ -49,10 +49,14 @@ export const Navbar = () => {
         >
             <Link href="/posting" className="text-blue-600">Post</Link>
         </motion.div>
+
+        
         
         
         {isAuthenticated ? (
-          <button onClick={handleLogout} className="text-blue-600">Logout</button>
+          <>
+            <button onClick={handleLogout} className="text-blue-600">Logout</button>
+          </>
         ) : (
           <>
             <motion.div

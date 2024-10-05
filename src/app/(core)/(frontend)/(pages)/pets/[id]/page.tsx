@@ -15,6 +15,7 @@ interface IParams {
     petSex: "Male" | "Female";
     petAge: string;
     petType: string;
+    petRewards: string;
   };
 }
 
@@ -29,7 +30,7 @@ const defaultFormData: FormData = {
 };
 
 const HomePage = ({ searchParams }: IParams) => {
-  const { petName, petImage, petDescription, petSex, petAge, petType } =
+  const { petName, petImage, petDescription, petSex, petAge, petType, petRewards } =
     searchParams;
 
   const router = useRouter();
@@ -121,6 +122,11 @@ const HomePage = ({ searchParams }: IParams) => {
           </p>
           <p className="text-gray-600 text-lg">
             <span className="font-bold">Age:</span> {petAge} old
+          </p>
+        </div>
+        <div>
+          <p className="text-gray-600 text-lg">
+            <span className="font-bold">Rewards:</span> {petRewards}
           </p>
         </div>
       </div>

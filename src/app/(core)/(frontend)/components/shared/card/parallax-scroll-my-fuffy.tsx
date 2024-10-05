@@ -7,6 +7,9 @@ import { cn } from "../../../utils";
 import { PetInfo } from "../../../types";
 import Link from "next/link";
 
+const userId = "123"; // Replace this with dynamic user ID
+
+
 const colorScheme: Record<string, { bg: string; border: string }> = {
   Dog: { bg: "bg-blue-100", border: "border-blue-200" },
   Cat: { bg: "bg-pink-100", border: "border-pink-200" },
@@ -14,7 +17,21 @@ const colorScheme: Record<string, { bg: string; border: string }> = {
   Rabbit: { bg: "bg-green-100", border: "border-green-200" },
 };
 
-export const ParallaxScroll = ({
+// Function to determine status styling
+const getStatusColor = (status: string) => {
+  switch (status) {
+    case "Missing":
+      return "text-red-500"; // Red for Missing status
+    case "Reported":
+      return "text-yellow-500"; // Yellow for Reported status
+    case "Returned":
+      return "text-green-500"; // Green for Returned status
+    default:
+      return "text-gray-500"; // Default gray
+  }
+};
+
+export const ParallaxScrollMyFluffy = ({
   pets,
   className,
 }: {
@@ -58,7 +75,7 @@ export const ParallaxScroll = ({
             >
               <Link
                 href={{
-                  pathname: `/pets/${pet.id}`,
+                    pathname: `/myfluffy/${userId}/pet/${pet.id}`,
                   query: {
                     petId: pet.id,
                     petImage: pet.image,
@@ -67,7 +84,9 @@ export const ParallaxScroll = ({
                     petSex: pet.sex,
                     petAge: pet.age,
                     petType: pet.type,
-                    petRewards: pet.rewards,
+                    petStatus: pet.status,
+                    petContact: pet.contact,
+                    petLocation: pet.location,
                   },
                 }}
               >
@@ -86,6 +105,10 @@ export const ParallaxScroll = ({
                 <p className="text-gray-600">
                   <span className="font-semibold">Age:</span> {pet.age}
                 </p>
+                {/* Status */}
+                <p className={getStatusColor(pet.status)}>
+                  <span className="font-semibold">Status:</span> {pet.status}
+                </p>
               </Link>
             </motion.div>
           ))}
@@ -98,9 +121,9 @@ export const ParallaxScroll = ({
               key={"grid-2" + idx}
               className="p-6 rounded-lg shadow-lg glassmorphism"
             >
-               <Link
+              <Link
                 href={{
-                  pathname: `/pets/${pet.id}`,
+                    pathname: `/myfluffy/${userId}/pet/${pet.id}`,
                   query: {
                     petId: pet.id,
                     petImage: pet.image,
@@ -109,25 +132,31 @@ export const ParallaxScroll = ({
                     petSex: pet.sex,
                     petAge: pet.age,
                     petType: pet.type,
-                    petRewards: pet.rewards,
+                    petStatus: pet.status,
+                    petContact: pet.contact,
+                    petLocation: pet.location,
                   },
                 }}
               >
-              <Image
-                src={pet.image}
-                className="h-80 w-full object-cover object-left-top rounded-lg mb-4"
-                height="400"
-                width="400"
-                alt={pet.name}
-              />
-              <h2 className="text-2xl font-bold text-gray-800">{pet.name}</h2>
-              <p className="text-gray-600">{pet.description}</p>
-              <p className="text-gray-600">
-                <span className="font-semibold">Sex:</span> {pet.sex}
-              </p>
-              <p className="text-gray-600">
-                <span className="font-semibold">Age:</span> {pet.age}
-              </p>
+                <Image
+                  src={pet.image}
+                  className="h-80 w-full object-cover object-left-top rounded-lg mb-4"
+                  height="400"
+                  width="400"
+                  alt={pet.name}
+                />
+                <h2 className="text-2xl font-bold text-gray-800">{pet.name}</h2>
+                <p className="text-gray-600">{pet.description}</p>
+                <p className="text-gray-600">
+                  <span className="font-semibold">Sex:</span> {pet.sex}
+                </p>
+                <p className="text-gray-600">
+                  <span className="font-semibold">Age:</span> {pet.age}
+                </p>
+                {/* Status */}
+                <p className={getStatusColor(pet.status)}>
+                  <span className="font-semibold">Status:</span> {pet.status}
+                </p>
               </Link>
             </motion.div>
           ))}
@@ -142,7 +171,7 @@ export const ParallaxScroll = ({
             >
               <Link
                 href={{
-                  pathname: `/pets/${pet.id}`,
+                  pathname: `/myfluffy/${userId}/pet/${pet.id}`,
                   query: {
                     petId: pet.id,
                     petImage: pet.image,
@@ -151,25 +180,31 @@ export const ParallaxScroll = ({
                     petSex: pet.sex,
                     petAge: pet.age,
                     petType: pet.type,
-                    petRewards: pet.rewards,
+                    petStatus: pet.status,
+                    petContact: pet.contact,
+                    petLocation: pet.location
                   },
                 }}
               >
-              <Image
-                src={pet.image}
-                className="h-80 w-full object-cover object-left-top rounded-lg mb-4"
-                height="400"
-                width="400"
-                alt={pet.name}
-              />
-              <h2 className="text-2xl font-bold text-gray-800">{pet.name}</h2>
-              <p className="text-gray-600">{pet.description}</p>
-              <p className="text-gray-600">
-                <span className="font-semibold">Sex:</span> {pet.sex}
-              </p>
-              <p className="text-gray-600">
-                <span className="font-semibold">Age:</span> {pet.age}
-              </p>
+                <Image
+                  src={pet.image}
+                  className="h-80 w-full object-cover object-left-top rounded-lg mb-4"
+                  height="400"
+                  width="400"
+                  alt={pet.name}
+                />
+                <h2 className="text-2xl font-bold text-gray-800">{pet.name}</h2>
+                <p className="text-gray-600">{pet.description}</p>
+                <p className="text-gray-600">
+                  <span className="font-semibold">Sex:</span> {pet.sex}
+                </p>
+                <p className="text-gray-600">
+                  <span className="font-semibold">Age:</span> {pet.age}
+                </p>
+                {/* Status */}
+                <p className={getStatusColor(pet.status)}>
+                  <span className="font-semibold">Status:</span> {pet.status}
+                </p>
               </Link>
             </motion.div>
           ))}

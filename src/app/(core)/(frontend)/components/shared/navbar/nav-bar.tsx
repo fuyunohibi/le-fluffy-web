@@ -6,12 +6,32 @@ import { CirclePlus, Heart, House, Search, User } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { SearchBar } from "./search-bar";
 
+interface User {
+  id: string;
+  name: string;
+}
+
+const fakeUser: User = {
+  id: "12345", 
+  name: "John Doe",
+};
+
+
 export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isSearchVisible, setIsSearchVisible] = useState(false); // New state for search box visibility
-  const [searchInput, setSearchInput] = useState(""); // New state for search input
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [isSearchVisible, setIsSearchVisible] = useState(false); 
+  const [searchInput, setSearchInput] = useState(""); 
+  const [user, setUser] = useState<User | null>(null);
+
   const router = useRouter();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      setUser(fakeUser);
+    }
+  }, [isAuthenticated]);
+
 
   const handleLogout = () => { 
     setIsAuthenticated(false); 
@@ -79,10 +99,33 @@ export const Navbar = () => {
             </Link>
           </motion.div>
 
-          {isAuthenticated ? (
-            <button onClick={handleLogout} className="text-gray-900">
-              Logout
-            </button>
+          {isAuthenticated && user ? (
+            <>
+                <motion.div
+                  whileTap={{
+                    scale: 1.2,
+                    transition: { type: "spring", stiffness: 400, damping: 10 },
+                  }}
+                  whileHover={{ scale: 1.1 }}
+                  className="text-gray-900 font-semibold flex flex-col items-center transition-all hover:underline duration-500"
+                >
+                    <Link href={`/myfluffy/${user.id}`} className="text-gray-900">
+                      My Fluffy
+                    </Link>
+                </motion.div>
+                <motion.div
+                  whileTap={{
+                    scale: 1.2,
+                    transition: { type: "spring", stiffness: 400, damping: 10 },
+                  }}
+                  whileHover={{ scale: 1.1 }}
+                  className="text-gray-900 font-semibold flex flex-col items-center transition-all hover:underline duration-500"
+                >
+                  <button onClick={handleLogout} className="text-gray-900">
+                    Logout
+                  </button>
+                </motion.div>
+            </>
           ) : (
             <>
               <motion.div
