@@ -3,7 +3,7 @@ export interface PetInfo {
   image: string;
   name: string;
   description: string;
-  sex: string;
+  sex: "Male" | "Female";
   age: string;
   type: string;
 }

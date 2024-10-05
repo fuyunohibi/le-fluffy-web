@@ -59,6 +59,15 @@ export const ParallaxScroll = ({
               <Link
                 href={{
                   pathname: `/pets/${pet.id}`,
+                  query: {
+                    petId: pet.id,
+                    petImage: pet.image,
+                    petName: pet.name,
+                    petDescription: pet.description,
+                    petSex: pet.sex,
+                    petAge: pet.age,
+                    petType: pet.type,
+                  },
                 }}
               >
                 <Image
@@ -88,6 +97,20 @@ export const ParallaxScroll = ({
               key={"grid-2" + idx}
               className="p-6 rounded-lg shadow-lg glassmorphism"
             >
+               <Link
+                href={{
+                  pathname: `/pets/${pet.id}`,
+                  query: {
+                    petId: pet.id,
+                    petImage: pet.image,
+                    petName: pet.name,
+                    petDescription: pet.description,
+                    petSex: pet.sex,
+                    petAge: pet.age,
+                    petType: pet.type,
+                  },
+                }}
+              >
               <Image
                 src={pet.image}
                 className="h-80 w-full object-cover object-left-top rounded-lg mb-4"
@@ -103,6 +126,7 @@ export const ParallaxScroll = ({
               <p className="text-gray-600">
                 <span className="font-semibold">Age:</span> {pet.age}
               </p>
+              </Link>
             </motion.div>
           ))}
         </div>
@@ -114,6 +138,20 @@ export const ParallaxScroll = ({
               key={"grid-3" + idx}
               className="p-6 rounded-lg shadow-lg glassmorphism"
             >
+              <Link
+                href={{
+                  pathname: `/pets/${pet.id}`,
+                  query: {
+                    petId: pet.id,
+                    petImage: pet.image,
+                    petName: pet.name,
+                    petDescription: pet.description,
+                    petSex: pet.sex,
+                    petAge: pet.age,
+                    petType: pet.type,
+                  },
+                }}
+              >
               <Image
                 src={pet.image}
                 className="h-80 w-full object-cover object-left-top rounded-lg mb-4"
@@ -129,6 +167,7 @@ export const ParallaxScroll = ({
               <p className="text-gray-600">
                 <span className="font-semibold">Age:</span> {pet.age}
               </p>
+              </Link>
             </motion.div>
           ))}
         </div>

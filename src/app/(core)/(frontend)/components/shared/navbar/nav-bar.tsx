@@ -5,6 +5,7 @@ import Link from "next/link";
 import { CirclePlus, Heart, House, Search, User } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { SearchBar } from "./search-bar";
+
 export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
