@@ -71,7 +71,7 @@ const HomePage = ({ searchParams }: IParams) => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     console.log("Form Data Submitted:", formData);
-    
+
     if (selectPosition) {
       console.log("Latitude:", selectPosition.lat, "Longitude:", selectPosition.lon);
     } else {
@@ -162,8 +162,10 @@ const HomePage = ({ searchParams }: IParams) => {
       <div className=" min-h-[10rem]">
           <Maps selectPosition={selectPosition} setSelectPosition={setSelectPosition} />
       </div>
+      <div>
+          <SearchBox selectPosition={selectPosition} setSelectPosition={setSelectPosition}/>
+      </div>
       
-      <SearchBox selectPosition={selectPosition} setSelectPosition={setSelectPosition}/>
 
       <div className="flex justify-between mt-4 gap-3">
         <button

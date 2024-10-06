@@ -63,6 +63,12 @@ export default function SearchBox({ setSelectPosition }: SearchBoxProps) {
       });
   };
 
+  const handleSelectPlace = (place: Position) => {
+    setSelectPosition(place); // Set the selected position
+    setListPlace([]); // Clear the search results to hide them
+    setSearchText(""); // Optionally clear the search input
+  };
+
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <div style={{ display: "flex" }}>
@@ -79,21 +85,23 @@ export default function SearchBox({ setSelectPosition }: SearchBoxProps) {
           </Button>
         </div>
       </div>
-      <div>
-        <List component="nav" aria-label="search results">
-          {listPlace.map((item) => (
-            <div key={item?.place_id}>
-              <ListItem button onClick={() => setSelectPosition(item)}>
-                <ListItemIcon>
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/9/9e/Pin-location.png" alt="Placeholder" style={{ width: 38, height: 38 }} />
-                </ListItemIcon>
-                <ListItemText primary={item?.display_name} />
-              </ListItem>
-              <Divider />
-            </div>
-          ))}
-        </List>
-      </div>
+      {listPlace.length > 0 && ( // Only show the list if there are results
+        <div className="max-h-[100px] overflow-y-auto">
+          <List component="nav" aria-label="search results">
+            {listPlace.map((item) => (
+              <div key={item?.place_id}>
+                <ListItem button onClick={() => handleSelectPlace(item)}>
+                  <ListItemIcon>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/9e/Pin-location.png" alt="Placeholder" style={{ width: 38, height: 38 }} />
+                  </ListItemIcon>
+                  <ListItemText primary={item?.display_name} />
+                </ListItem>
+                <Divider />
+              </div>
+            ))}
+          </List>
+        </div>
+      )}
     </div>
   );
 }
