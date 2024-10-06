@@ -2,6 +2,8 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import Notification from '../../components/shared/notification/notification';
 import CheckIcon from '../../components/shared/icon/check-icon';
+import FailedNotification from '../../components/shared/notification/failed-notification';
+import XMarkIcon from '../../components/shared/icon/x-mark-icon';
 
 interface FormData {
     image: string;
@@ -10,6 +12,7 @@ interface FormData {
     sex: string;
     age: string;
     type: string;
+    reward: number;
 }
 
 const defaultFormData: FormData = {
@@ -18,12 +21,15 @@ const defaultFormData: FormData = {
   description: "",
   sex: "",
   age: "",
-  type: ""
+  type: "",
+  reward: 0.0
 };
+
 
 const PostingPage: React.FC = () => {
     const [formData, setFormData] = useState<FormData>(defaultFormData);
     const [notification, setNotification] = useState(false);
+    const [failedNotification, setFailedNotification] = useState(false);
 
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
@@ -33,16 +39,50 @@ const PostingPage: React.FC = () => {
         });
     };
 
-    const handleSubmit = (e: FormEvent) => {
+    const handleSubmit =  async (e: FormEvent) => {
         e.preventDefault();
-        console.log('Form submitted:', formData);
 
-        setFormData(defaultFormData);
-        setNotification(true);
+        try {
+            const response = await fetch('/api/posts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: formData.name,
+                    species: formData.type, // Assuming 'type' is species
+                    sex: formData.sex,
+                    description: formData.description,
+                    reward: parseFloat(formData.reward.toString()), // You can adjust this field
+                    photo: formData.image,
+                    userId: 1, // Replace this with the actual user ID
+                }),
+            });
+            setFormData(defaultFormData);
+    
+            if (response.ok) {
+                console.log('Data: ', response.json())
+                setNotification(true);
+        
+                setTimeout(() => {
+                  setNotification(false);
+                }, 3000);
+            } else {
+                console.error('Failed to submit the form');
+                setFailedNotification(true);
 
-        setTimeout(() => {
-          setNotification(false);
-        }, 3000);
+                setTimeout(() => {
+                    setFailedNotification(false);
+                }, 3000);
+            }
+        } catch (error) {
+            console.error('Error submitting form:', error);
+            setFailedNotification(true);
+
+            setTimeout(() => {
+                setFailedNotification(false);
+            }, 3000);
+        }
     };
 
     return (
@@ -149,6 +189,22 @@ const PostingPage: React.FC = () => {
                         />
                     </div>
 
+                    <div className="mb-6">
+                        <label htmlFor="type" className="block text-sm font-medium text-gray-600">Reward</label>
+                        <input
+                            type="number"
+                            step="any"
+                            name="reward"
+                            id="type"
+                            value={formData.reward}
+                            onChange={handleChange}
+                            className="w-full px-4 py-2 mt-1 rounded-md 
+                            focus:border-blue-500 focus:ring focus:ring-blue-200
+                            border-none bg-gray-100"
+                            placeholder="5000 bath"
+                        />
+                    </div>
+
                     <button
                         type="submit"
                         className="w-full py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
@@ -158,6 +214,7 @@ const PostingPage: React.FC = () => {
                 </form>
             </div>
             <Notification visible={notification} icon={<CheckIcon/>}/>
+            <FailedNotification visible={failedNotification} icon={<XMarkIcon/>}/>
         </section>
         
     );

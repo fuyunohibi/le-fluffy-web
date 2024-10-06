@@ -4,10 +4,10 @@ interface ToastProps {
     icon: React.ReactNode;
   }
   
-const Notification: React.FC<ToastProps> = ({  visible, icon}) => {
+const FailedNotification: React.FC<ToastProps> = ({  visible, icon}) => {
     return (
         <div
-        className={`fixed bottom-4 right-4 bg-green-500 w-[40px] h-[40px] p-1
+        className={`fixed bottom-4 right-4 bg-red-500 w-[40px] h-[40px] p-1
         flex items-center justify-center
          rounded-full shadow-lg transition-opacity duration-300 ease-in-out ${
             visible ? 'opacity-100' : 'opacity-0 pointer-events-none'
@@ -18,4 +18,4 @@ const Notification: React.FC<ToastProps> = ({  visible, icon}) => {
     );
 };
 
-export default Notification;
+export default FailedNotification;
