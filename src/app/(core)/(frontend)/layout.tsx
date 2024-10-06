@@ -5,6 +5,10 @@ import "./globals.css";
 import { WavyBackground } from "./components/shared/background/wavy-background";
 import { Navbar } from "./components/shared/navbar/nav-bar";
 import SessionProvider from "./components/auth/SessionProvider";
+import PluginManager from "@/app/(plugins)/pluginsManager";
+import AdsPlugin from "@/app/(plugins)/ads";
+import LocationPlugin from "@/app/(plugins)/location";
+import RewardsPlugin from "@/app/(plugins)/rewards";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -27,6 +31,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const pluginManager = PluginManager.getInstance()
+
+  pluginManager.register(new AdsPlugin())
+  pluginManager.register(new LocationPlugin());
+  pluginManager.register(new RewardsPlugin());
+
+  pluginManager.executeAll()
+
   return (
     <html lang="en">
       <body
