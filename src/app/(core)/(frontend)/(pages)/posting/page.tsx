@@ -12,7 +12,7 @@ interface FormData {
     sex: string;
     age: string;
     type: string;
-    reward: number;
+    reward?: number;
 }
 
 const defaultFormData: FormData = {
@@ -53,7 +53,7 @@ const PostingPage: React.FC = () => {
                     species: formData.type, // Assuming 'type' is species
                     sex: formData.sex,
                     description: formData.description,
-                    reward: parseFloat(formData.reward.toString()), // You can adjust this field
+                    reward: parseFloat(formData.reward ? formData.reward.toString() : "0.0"), // You can adjust this field
                     photo: formData.image,
                     userId: 1, // Replace this with the actual user ID
                 }),
@@ -196,6 +196,7 @@ const PostingPage: React.FC = () => {
                             step="any"
                             name="reward"
                             id="type"
+                            min="0"
                             value={formData.reward}
                             onChange={handleChange}
                             className="w-full px-4 py-2 mt-1 rounded-md 
