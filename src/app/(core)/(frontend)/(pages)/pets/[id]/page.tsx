@@ -5,7 +5,9 @@ import { motion } from "framer-motion";
 import { Heart } from "lucide-react";
 import { IconGenderMale, IconGenderFemale } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
-
+import SearchBox from "../../../components/shared/searchbox/search-box";
+import Maps from "../../../components/shared/map/map";
+import { Position } from "../../../types"; 
 interface IParams {
   searchParams: {
     petId: string;
@@ -29,6 +31,7 @@ const defaultFormData: FormData = {
   location: "",
 };
 
+
 const HomePage = ({ searchParams }: IParams) => {
   const { petName, petImage, petDescription, petSex, petAge, petType, petRewards } =
     searchParams;
@@ -38,7 +41,7 @@ const HomePage = ({ searchParams }: IParams) => {
   const [showContactForm, setShowContactForm] = useState(false);
   const [formData, setFormData] = useState<FormData>(defaultFormData);
   const [showThankYouBox, setShowThankYouBox] = useState(false);
-
+  const [selectPosition, setSelectPosition] = useState<Position | null>(null);
   const petSexIconMap = {
     Male: <IconGenderMale className="inline-block ml-2 text-blue-500" />,
     Female: <IconGenderFemale className="inline-block ml-2 text-pink-500" />,
@@ -68,6 +71,13 @@ const HomePage = ({ searchParams }: IParams) => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     console.log("Form Data Submitted:", formData);
+    
+    if (selectPosition) {
+      console.log("Latitude:", selectPosition.lat, "Longitude:", selectPosition.lon);
+    } else {
+      console.log("No location selected.");
+    }
+  
 
     setShowThankYouBox(true);
     setShowContactForm(false);
@@ -145,14 +155,16 @@ const HomePage = ({ searchParams }: IParams) => {
         value={formData.contact}
         onChange={handleTextChange}
       />
-      <input
-        type="text"
-        name="location"
-        placeholder="Your Location"
-        className="border p-2 rounded-2xl w-full"
-        value={formData.location}
-        onChange={handleTextChange}
-      />
+      <p className="text-gray-600 text-lg">
+        <span className="font-bold">Location:</span> {formData.location}
+      </p>
+
+      <div className=" min-h-[10rem]">
+          <Maps selectPosition={selectPosition} setSelectPosition={setSelectPosition} />
+      </div>
+      
+      <SearchBox selectPosition={selectPosition} setSelectPosition={setSelectPosition}/>
+
       <div className="flex justify-between mt-4 gap-3">
         <button
           type="button"
