@@ -15,6 +15,13 @@ export interface PetInfo {
   type: string;
 }
 
+export interface Position {
+  lat: number;
+  lon: number;
+  display_name?: string;
+  place_id?: string;
+}
+
 declare module "next-auth" {
   interface Session {
     user: {
@@ -31,3 +38,4 @@ declare module "next-auth" {
     email?: string | null;
   }
 }
+
