@@ -10,6 +10,7 @@ interface FormData {
     sex: string;
     age: string;
     type: string;
+    rewards: string;
 }
 
 const defaultFormData: FormData = {
@@ -18,7 +19,8 @@ const defaultFormData: FormData = {
   description: "",
   sex: "",
   age: "",
-  type: ""
+  type: "",
+  rewards: "",
 };
 
 const PostingPage: React.FC = () => {
@@ -145,6 +147,22 @@ const PostingPage: React.FC = () => {
                             focus:border-blue-500 focus:ring focus:ring-blue-200
                             border-none bg-gray-100"
                             placeholder="Dog"
+                            required
+                        />
+                    </div>
+
+                    <div className="mb-6">
+                        <label htmlFor="rewards" className="block text-sm font-medium text-gray-600">Rewards</label>
+                        <input
+                            type="text"
+                            name="rewards"
+                            id="rewards"
+                            value={formData.rewards}
+                            onChange={handleChange}
+                            className="w-full px-4 py-2 mt-1 rounded-md 
+                            focus:border-blue-500 focus:ring focus:ring-blue-200
+                            border-none bg-gray-100"
+                            placeholder="1000"
                             required
                         />
                     </div>
