@@ -46,3 +46,43 @@ export async function DELETE(_: Request, context: { params: { id: string } }) {
         return NextResponse.json({ message: "Something went wrong!" }, { status: 500 });
     }
 }
+
+export async function PATCH(req: Request, context: { params: { id: string } }) {
+    try {
+        const postId = +context.params.id;
+        const {
+            name, species, breed, sex, description, reward, photo
+        } = await req.json();
+
+        // Check if the post exists before attempting to update
+        const post = await db.post.findUnique({
+            where: { id: postId }
+        });
+
+        if (!post) {
+            return NextResponse.json({ message: "Post not found" }, { status: 404 });
+        }
+
+        // Update the post with new data
+        const updatedPost = await db.post.update({
+            where: { id: postId },
+            data: {
+                name: name ?? post.name, // Use the existing value if not provided
+                species: species ?? post.species,
+                breed: breed ?? post.breed,
+                sex: sex ?? post.sex,
+                description: description ?? post.description,
+                reward: reward ?? post.reward,
+                photo: photo ?? post.photo
+            }
+        });
+
+        return NextResponse.json(
+            { message: `Post for ${updatedPost.name} updated successfully`, post: updatedPost },
+            { status: 200 }
+        );
+    } catch (err) {
+        console.log(err);
+        return NextResponse.json({ message: "Something went wrong!" }, { status: 500 });
+    }
+}

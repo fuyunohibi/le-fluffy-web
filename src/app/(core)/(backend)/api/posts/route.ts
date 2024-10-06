@@ -4,11 +4,11 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
     try {
         const {
-            name, species, breed, sex, description, reward, photo, locationId, userId
+            name, species, breed, sex, description, reward, photo, userId
         } = await req.json();
 
         const newPost = await db.post.create({
-            data: { name, species, breed, sex, description, reward, photo, locationId, userId }
+            data: { name, species, breed, sex, description, reward, photo, userId }
         });
 
         return NextResponse.json(
