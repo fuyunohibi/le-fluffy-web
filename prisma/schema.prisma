@@ -32,8 +32,8 @@ model Post {
   description String
   reward      Float?    // reward amount, can be optional
   photo       String    // store URL to pet's photo
-  location    Location  @relation(fields: [locationId], references: [id])
-  locationId  Int
+  location    Location?  @relation(fields: [locationId], references: [id])
+  locationId  Int?
   user        User      @relation(fields: [userId], references: [id])
   userId      Int
   createdAt   DateTime  @default(now())
