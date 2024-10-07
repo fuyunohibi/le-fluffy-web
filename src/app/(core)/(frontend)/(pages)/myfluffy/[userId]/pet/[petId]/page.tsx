@@ -43,7 +43,15 @@ const HomePage = ({ searchParams }: IParams) => {
     petLocation: petLocationStr, 
   } = searchParams;
 
-  const petLocation = typeof petLocationStr === 'string' ? JSON.parse(petLocationStr) : petLocationStr;
+  let petLocation: PetLocation | null = null;
+  try {
+    petLocation =
+      typeof petLocationStr === "string" && (petLocationStr as string).length > 0
+        ? JSON.parse(petLocationStr)
+        : petLocationStr;
+  } catch (err) {
+    console.error("Failed to parse petLocation:", err);
+  }
   const router = useRouter();
 
   const [showThankYouBox, setShowThankYouBox] = useState(false);
