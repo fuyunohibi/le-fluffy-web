@@ -5,15 +5,16 @@ import CheckIcon from "../../components/shared/icon/check-icon";
 import FailedNotification from "../../components/shared/notification/failed-notification";
 import XMarkIcon from "../../components/shared/icon/x-mark-icon";
 import { BackgroundGradient } from "../../components/shared/card/background-gradient";
+import { useRouter } from "next/navigation";
 
 interface FormData {
   image: string;
   name: string;
   description: string;
   sex: string;
-  age: number;
+  age: string;
   species: string;
-  reward?: number;
+  reward?: string;
 }
 
 const defaultFormData: FormData = {
@@ -21,9 +22,9 @@ const defaultFormData: FormData = {
   name: "",
   description: "",
   sex: "",
-  age: 0.0,
+  age: "0", 
   species: "",
-  reward: 0.0,
+  reward: "0"
 };
 
 const PostingPage: React.FC = () => {
@@ -31,20 +32,17 @@ const PostingPage: React.FC = () => {
   const [notification, setNotification] = useState(false);
   const [failedNotification, setFailedNotification] = useState(false);
 
+  const router = useRouter();
+
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
 
-    if (name === "age") {
+    if (name === "age" || name === "reward") {
       setFormData({
         ...formData,
-        age: parseFloat(value) || 0,
-      });
-    } else if (name === "reward") {
-      setFormData({
-        ...formData,
-        reward: parseFloat(value) || 0,
+        [name]: value,
       });
     } else {
       setFormData({
@@ -57,6 +55,12 @@ const PostingPage: React.FC = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
+    const formDataToSubmit = {
+      ...formData,
+      age: parseFloat(formData.age) || 0,
+      reward: parseFloat(formData.reward) || 0,
+    };
+
     try {
       const response = await fetch("/api/posts", {
         method: "POST",
@@ -64,13 +68,13 @@ const PostingPage: React.FC = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name: formData.name,
-          species: formData.species,
-          sex: formData.sex,
-          age: formData.age,
-          description: formData.description,
-          reward: formData.reward,
-          photo: formData.image,
+          name: formDataToSubmit.name,
+          species: formDataToSubmit.species,
+          sex: formDataToSubmit.sex,
+          age: formDataToSubmit.age,
+          description: formDataToSubmit.description,
+          reward: formDataToSubmit.reward,
+          photo: formDataToSubmit.image,
           status: "MISSING",
           userId: 1,
         }),
@@ -83,16 +87,16 @@ const PostingPage: React.FC = () => {
         setTimeout(() => {
           setNotification(false);
         }, 3000);
+
+        router.push("/");
       } else {
         setFailedNotification(true);
-
         setTimeout(() => {
           setFailedNotification(false);
         }, 3000);
       }
     } catch (error) {
       setFailedNotification(true);
-
       setTimeout(() => {
         setFailedNotification(false);
       }, 3000);
