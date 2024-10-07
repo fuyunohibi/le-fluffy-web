@@ -68,7 +68,16 @@ export const ParallaxScroll = ({
         <Link
           href={{
             pathname: `/pets/${pet.id}`,
-            query: { ...pet },
+            query: {
+              petId: pet.id,
+              petImage: pet.photo,
+              petName: pet.name,
+              petDescription: pet.description,
+              petSex: pet.sex,
+              petAge: pet.age,
+              petSpecies: pet.species,
+              petReward: pet.reward,
+            },
           }}
         >
           <Image
