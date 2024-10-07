@@ -32,7 +32,7 @@ const defaultFormData: FormData = {
 };
 
 
-const HomePage = ({ searchParams }: IParams) => {
+const PetInformationPage = ({ searchParams }: IParams) => {
   const { petName, petImage, petDescription, petSex, petAge, petSpecies, petReward } =
     searchParams;
 
@@ -242,4 +242,4 @@ const HomePage = ({ searchParams }: IParams) => {
   );
 };
 
-export default HomePage;
+export default PetInformationPage;
