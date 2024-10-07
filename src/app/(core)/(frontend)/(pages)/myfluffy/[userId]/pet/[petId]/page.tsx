@@ -5,6 +5,12 @@ import { motion } from "framer-motion";
 import { Heart, Trash2 } from "lucide-react";
 import { IconGenderMale, IconGenderFemale } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
+import MapTilerMap from "@/app/(core)/(frontend)/components/shared/map/only-map";
+
+interface PetLocation {
+  latitude: number;
+  longitude: number;
+}
 
 interface IParams {
   searchParams: {
@@ -18,7 +24,7 @@ interface IParams {
     petSpecies: string;
     petStatus: "MISSING" | "REPORTED" | "RETURNED"; 
     petContact?: string; 
-    petLocation?: string; 
+    petLocation: PetLocation | null; 
   };
 }
 
@@ -34,9 +40,10 @@ const HomePage = ({ searchParams }: IParams) => {
     petReward,
     petStatus,
     petContact,
-    petLocation,
+    petLocation: petLocationStr, 
   } = searchParams;
 
+  const petLocation = typeof petLocationStr === 'string' ? JSON.parse(petLocationStr) : petLocationStr;
   const router = useRouter();
 
   const [showThankYouBox, setShowThankYouBox] = useState(false);
@@ -119,7 +126,16 @@ const HomePage = ({ searchParams }: IParams) => {
         {`${petName} was found!`}
       </h1>
       <p className="text-lg text-gray-600">Reported by: {petContact}</p>
-      <p className="text-lg text-gray-600">Location: {petLocation}</p>
+      {petLocation ? (
+        <div>
+          <p className="text-lg text-gray-600">
+            Location: Latitude {petLocation.latitude}, Longitude {petLocation.longitude}
+          </p>
+          <MapTilerMap latitude={petLocation.latitude} longitude={petLocation.longitude} />
+        </div>
+      ) : (
+        <p>No location available.</p>
+      )}
       <button
         onClick={handleReturn}
         className="bg-green-500 text-white font-bold rounded-2xl p-4 w-full mt-4 transition-all duration-300 ease-in-out hover:bg-green-600"

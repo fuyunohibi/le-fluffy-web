@@ -58,6 +58,7 @@ interface MapsProps {
 }
 
 export default function Maps({ selectPosition, setSelectPosition }: MapsProps) {
+  const MAPTILER_API_KEY = process.env.NEXT_PUBLIC_MAPTILER_API_KEY;
   const locationSelection: [number, number] | undefined = selectPosition
     ? [selectPosition.lat, selectPosition.lon]
     : undefined;
@@ -70,7 +71,7 @@ export default function Maps({ selectPosition, setSelectPosition }: MapsProps) {
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://api.maptiler.com/maps/streets-v2/256/{z}/{x}/{y}.png?key=K6vLWsn5clHHN8pS5TWD"
+        url={`https://api.maptiler.com/maps/basic-v2/256/{z}/{x}/{y}.png?key=${MAPTILER_API_KEY}`}
       />
       
       {/* If a position is selected, show the marker */}

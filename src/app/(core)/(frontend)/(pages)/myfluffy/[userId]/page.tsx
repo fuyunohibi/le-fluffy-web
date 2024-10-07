@@ -18,7 +18,7 @@ const HomePage = () => {
           const userId = session?.user.id;  
           const res = await fetch(`/api/pets/${userId}`);
           const data = await res.json();
-          if (res.ok) {
+          if (res.ok && data.pets) {
             setPets(data.pets);
             console.log(data.pets);
           } else {

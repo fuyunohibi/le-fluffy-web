@@ -1,7 +1,13 @@
+export interface PetLocation {
+  id: number;
+  latitude: number;
+  longitude: number;
+}
+
 export interface PetInfo {
   reward: number;
-  contact: string | number | boolean | readonly string[] | readonly number[] | readonly boolean[] | null | undefined;
-  location: string | number | boolean | readonly string[] | readonly number[] | readonly boolean[] | null | undefined;
+  contact: string | number | null | undefined;  // Simplified contact type
+  location: PetLocation | null;  // Nullable location
   status: string;
   id: string;
   photo: string;
