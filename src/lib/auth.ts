@@ -49,7 +49,7 @@ export const authOptions: NextAuthOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
-    signIn: "/flow/login",
+    signIn: "/auth",
   },
   callbacks: {
     async jwt({ token, user }) {

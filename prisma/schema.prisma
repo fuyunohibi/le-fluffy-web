@@ -24,18 +24,18 @@ model User {
 }
 
 model Post {
-  id          Int      @id @default(autoincrement())
+  id          Int       @id @default(autoincrement())
   name        String
   species     String
   breed       String?
-  sex         String    // e.g. 'Male', 'Female'
+  sex         String
   description String
-  reward      Float?    // reward amount, can be optional
-  photo       String    // store URL to pet's photo
-  location    Location?  @relation(fields: [locationId], references: [id])
-  locationId  Int?
-  user        User      @relation(fields: [userId], references: [id])
+  reward      Float?
+  photo       String
   userId      Int
+  user        User      @relation(fields: [userId], references: [id])
+  locationId  Int?      // Make this optional
+  location    Location? @relation(fields: [locationId], references: [id]) // Optional relation
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 }
