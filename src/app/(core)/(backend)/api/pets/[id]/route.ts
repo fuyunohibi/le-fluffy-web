@@ -36,3 +36,54 @@ export async function GET(req: Request, context: { params: { id: string } }) {
     return NextResponse.json({ message: "Something went wrong" }, { status: 500 });
   }
 }
+
+export async function PATCH(req: Request, context: { params: { id: string } }) {
+  try {
+    const session = await getServerSession(authOptions);
+
+    if (!session) {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
+
+    const postId = parseInt(context.params.id);
+    const authenticatedUserId = parseInt(session.user.id);
+
+    // Ensure the authenticated user is the owner of the post
+    const petPost = await db.post.findUnique({
+      where: { id: postId },
+      include: { user: true },
+    });
+
+    if (!petPost || petPost.userId !== authenticatedUserId) {
+      return NextResponse.json({ message: "Forbidden" }, { status: 403 });
+    }
+
+    const { contact, location } = await req.json();
+
+    // Update the post's status to REPORTED, and include contact info and location
+    const updatedPet = await db.post.update({
+      where: { id: postId },
+      data: {
+        status: "REPORTED",
+        contact: contact,
+        location: {
+          create: {
+            latitude: location.latitude,
+            longitude: location.longitude,
+          },
+        },
+      },
+      include: {
+        location: true,
+      },
+    });
+
+    return NextResponse.json({ pet: updatedPet }, { status: 200 });
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json(
+      { message: "Something went wrong" },
+      { status: 500 }
+    );
+  }
+}

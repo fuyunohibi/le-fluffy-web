@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["images.unsplash.com", "unsplash.com", 'static.bangkokpost.com'], // Add your allowed external domain
+    domains: ["images.unsplash.com", "unsplash.com", 'static.bangkokpost.com', 'th.bing.com'], // Add your allowed external domain
   },
 };
 

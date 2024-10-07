@@ -69,25 +69,52 @@ const HomePage = ({ searchParams }: IParams) => {
     }));
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     console.log("Form Data Submitted:", formData);
 
     if (selectPosition) {
-      console.log("Latitude:", selectPosition.lat, "Longitude:", selectPosition.lon);
+      const { lat, lon } = selectPosition;
+      console.log("Latitude:", lat, "Longitude:", lon);
+
+      try {
+        const response = await fetch(`/api/pets/${searchParams.petId}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            contact: formData.contact,
+            location: {
+              latitude: lat,
+              longitude: lon,
+            },
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to update pet status");
+        }
+
+        const updatedPet = await response.json();
+        console.log("Pet updated successfully:", updatedPet);
+
+        setShowThankYouBox(true);
+        setShowContactForm(false);
+
+        // Redirect after a timeout
+        setTimeout(() => {
+          setFormData(defaultFormData);
+          router.push("/");
+        }, 3000);
+      } catch (error) {
+        console.error("Error updating pet status:", error);
+      }
     } else {
       console.log("No location selected.");
     }
-  
-
-    setShowThankYouBox(true);
-    setShowContactForm(false);
-
-    setTimeout(() => {
-      setFormData(defaultFormData);
-      router.push("/");
-    }, 3000);
   };
+
 
   const renderPetSexButton = () => {
     const isMale = petSex === "Male";

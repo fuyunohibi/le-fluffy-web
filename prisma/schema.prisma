@@ -27,31 +27,30 @@ model Post {
   id          Int       @id @default(autoincrement())
   name        String
   species     String
-  breed       String?
   sex         String
   age         Float
   description String
   reward      Float?
   photo       String
+  contact     String?
   userId      Int
   user        User      @relation(fields: [userId], references: [id])
-  locationId  Int?      // Make this optional
-  location    Location? @relation(fields: [locationId], references: [id]) // Optional relation
-  status      PostStatus @default(MISSING) // New field for status with default value
+  locationId  Int?      
+  location    Location? @relation(fields: [locationId], references: [id])
+  status      PostStatus @default(MISSING) 
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 }
 
 model Location {
   id        Int      @id @default(autoincrement())
-  latitude  Float    // GPS latitude for Google Maps
-  longitude Float    // GPS longitude for Google Maps
-  address   String?  // Optional, can store a human-readable address
+  latitude  Float    
+  longitude Float  
   posts     Post[]
 }
 
 enum PostStatus {
-  MISSING   // The pet is missing
-  REPORTED  // The pet has been reported
-  FOUND     // The pet has been found
+  MISSING   
+  REPORTED  
+  FOUND     
 }
