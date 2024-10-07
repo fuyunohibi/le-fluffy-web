@@ -7,7 +7,7 @@ import { cn } from "../../../utils";
 import { PetInfo } from "../../../types";
 import Link from "next/link";
 
-const userId = "123"; // Replace this with dynamic user ID
+
 
 
 const colorScheme: Record<string, { bg: string; border: string }> = {
@@ -24,7 +24,7 @@ const getStatusColor = (status: string) => {
       return "text-red-500"; // Red for Missing status
     case "REPORTED":
       return "text-yellow-500"; // Yellow for Reported status
-    case "RETURNED":
+    case "FOUND":
       return "text-green-500"; // Green for Returned status
     default:
       return "text-gray-500"; // Default gray
@@ -39,6 +39,7 @@ export const ParallaxScrollMyFluffy = ({
   className?: string;
 }) => {
   const gridRef = useRef<any>(null);
+  const userId = "yourUserId"; 
   const { scrollYProgress } = useScroll({
     container: gridRef,
     offset: ["start start", "end start"],

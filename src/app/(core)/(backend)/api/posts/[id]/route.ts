@@ -51,7 +51,7 @@ export async function PATCH(req: Request, context: { params: { id: string } }) {
     try {
         const postId = +context.params.id;
         const {
-            name, species, breed, sex, description, reward, photo, status, age
+            name, species, breed, sex, description, reward, photo, status, age, location, contact
         } = await req.json();
 
         // Check if the post exists before attempting to update
@@ -63,20 +63,46 @@ export async function PATCH(req: Request, context: { params: { id: string } }) {
             return NextResponse.json({ message: "Post not found" }, { status: 404 });
         }
 
+        // Build the data object dynamically to exclude undefined values
+        const dataToUpdate: any = {
+            ...(name && { name }),
+            ...(species && { species }),
+            ...(breed && { breed }),
+            ...(sex && { sex }),
+            ...(description && { description }),
+            ...(reward !== undefined && { reward }), // Handle undefined explicitly
+            ...(photo && { photo }),
+            ...(status && { status }),
+            ...(age !== undefined && { age }), // Handle undefined explicitly
+            ...(contact && { contact }), // Contact info
+        };
+
+        // Handle location update separately
+        if (location === null) {
+            // If location is null, remove the relation
+            dataToUpdate.location = {
+                delete: true,
+            };
+        } else if (location && location.latitude !== undefined && location.longitude !== undefined) {
+            // If location is provided, update the location details
+            dataToUpdate.location = {
+                upsert: {
+                    create: {
+                        latitude: location.latitude,
+                        longitude: location.longitude,
+                    },
+                    update: {
+                        latitude: location.latitude,
+                        longitude: location.longitude,
+                    },
+                },
+            };
+        }
+
         // Update the post with new data
         const updatedPost = await db.post.update({
             where: { id: postId },
-            data: {
-                name: name ?? post.name, // Use the existing value if not provided
-                species: species ?? post.species,
-                breed: breed ?? post.breed,
-                sex: sex ?? post.sex,
-                description: description ?? post.description,
-                reward: reward ?? post.reward,
-                photo: photo ?? post.photo,
-                status: status ?? post.status,
-                age: age ?? post.age
-            }
+            data: dataToUpdate
         });
 
         return NextResponse.json(

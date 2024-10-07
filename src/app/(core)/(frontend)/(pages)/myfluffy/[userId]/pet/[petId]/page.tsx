@@ -22,7 +22,7 @@ interface IParams {
     petSex: "Male" | "Female";
     petAge: number;
     petSpecies: string;
-    petStatus: "MISSING" | "REPORTED" | "RETURNED";
+    petStatus: "MISSING" | "REPORTED" | "FOUND";
     petContact?: string;
     petLocation: PetLocation | null;
   };
@@ -75,6 +75,68 @@ const HomePage = ({ searchParams }: IParams) => {
     }, 3000);
   };
 
+  const handleNotFound = async () => {
+    const confirmed = window.confirm(
+      `Are you sure you want to mark ${petName} as not found?`
+    );
+    if (confirmed) {
+      try {
+        const response = await fetch(`/api/posts/${petId}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            status: "MISSING", 
+            contact: null, 
+            location: null, 
+          }),
+        });
+
+        if (response.ok) {
+          setShowThankYouBox(true);
+          setTimeout(() => {
+            router.push("/");
+          }, 3000);
+        } else {
+          console.error("Failed to update pet status to MISSING.");
+        }
+      } catch (err) {
+        console.error("Error updating the pet status:", err);
+      }
+    }
+  };
+
+  const handleFound = async () => {
+    const confirmed = window.confirm(
+      `Are you sure you want to mark ${petName} as returned home?`
+    );
+    if (confirmed) {
+      try {
+        const response = await fetch(`/api/posts/${petId}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            status: "FOUND", // Change status to RETURNED
+          }),
+        });
+
+        if (response.ok) {
+          setShowThankYouBox(true);
+          setTimeout(() => {
+            router.push("/");
+          }, 3000);
+        } else {
+          console.error("Failed to update pet status to RETURNED.");
+        }
+      } catch (err) {
+        console.error("Error updating the pet status:", err);
+      }
+    }
+  };
+
   const handleDelete = async () => {
     const confirmed = window.confirm(
       `Are you sure you want to delete the post for ${petName}?`
@@ -122,7 +184,7 @@ const HomePage = ({ searchParams }: IParams) => {
           </div>
         </div>
         <button
-          onClick={handleReturn}
+          onClick={handleFound}
           className={`${buttonColorClass} text-white font-bold rounded-2xl p-4 w-full transition-all duration-300 ease-in-out hover:scale-105`}
         >
           <p className="flex flex-row items-center justify-center">
@@ -154,15 +216,25 @@ const HomePage = ({ searchParams }: IParams) => {
       ) : (
         <p>No location available.</p>
       )}
-      <button
-        onClick={handleReturn}
-        className="bg-green-500 text-white font-bold rounded-2xl p-4 w-full mt-4 transition-all duration-300 ease-in-out hover:bg-green-600"
-      >
-        <p className="flex flex-row items-center justify-center">
-          <Heart className="mr-2" />
-          <span className="text-lg">Mark as Returned</span>
-        </p>
-      </button>
+      <div className="flex flex-row justify-between gap-20">     
+        <button
+          onClick={handleNotFound}
+          className="bg-slate-300 text-white font-bold rounded-2xl p-4 w-full mt-4 transition-all duration-300 ease-in-out hover:bg-green-600"
+        >
+          <p className="flex flex-row items-center justify-center">
+            <span className="text-lg">Not Found</span>
+          </p>
+        </button>
+        <button
+          onClick={handleFound}
+          className="bg-green-500 text-white font-bold rounded-2xl p-4 w-full mt-4 transition-all duration-300 ease-in-out hover:bg-green-600"
+        >
+          <p className="flex flex-row items-center justify-center">
+            <Heart className="mr-2" />
+            <span className="text-lg">Mark as Returned</span>
+          </p>
+        </button>
+      </div>
     </div>
   );
 
