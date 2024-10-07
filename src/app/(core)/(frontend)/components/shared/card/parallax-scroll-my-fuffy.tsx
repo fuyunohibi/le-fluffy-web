@@ -136,7 +136,7 @@ export const ParallaxScrollMyFluffy = ({
                     petReward: pet.reward,
                     petStatus: pet.status,
                     petContact: pet.contact,
-                    petLocation: pet.location ? pet.location : null,
+                    petLocation: pet.location ? JSON.stringify(pet.location) : null,
 
                   },
                 }}
@@ -186,7 +186,7 @@ export const ParallaxScrollMyFluffy = ({
                     petReward: pet.reward,
                     petStatus: pet.status,
                     petContact: pet.contact,
-                    petLocation: pet.location ? pet.location : null,
+                    petLocation: pet.location ? JSON.stringify(pet.location) : null,
 
                   },
                 }}

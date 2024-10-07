@@ -46,17 +46,6 @@ export async function PATCH(req: Request, context: { params: { id: string } }) {
     }
 
     const postId = parseInt(context.params.id);
-    const authenticatedUserId = parseInt(session.user.id);
-
-    // Ensure the authenticated user is the owner of the post
-    const petPost = await db.post.findUnique({
-      where: { id: postId },
-      include: { user: true },
-    });
-
-    if (!petPost || petPost.userId !== authenticatedUserId) {
-      return NextResponse.json({ message: "Forbidden" }, { status: 403 });
-    }
 
     const { contact, location } = await req.json();
 

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Heart, Trash2 } from "lucide-react";
@@ -22,9 +22,9 @@ interface IParams {
     petSex: "Male" | "Female";
     petAge: number;
     petSpecies: string;
-    petStatus: "MISSING" | "REPORTED" | "RETURNED"; 
-    petContact?: string; 
-    petLocation: PetLocation | null; 
+    petStatus: "MISSING" | "REPORTED" | "RETURNED";
+    petContact?: string;
+    petLocation: PetLocation | null;
   };
 }
 
@@ -40,23 +40,29 @@ const HomePage = ({ searchParams }: IParams) => {
     petReward,
     petStatus,
     petContact,
-    petLocation: petLocationStr, 
+    petLocation: petLocationStr,
   } = searchParams;
 
-  let petLocation: PetLocation | null = null;
-  try {
-    petLocation =
-      typeof petLocationStr === "string" && (petLocationStr as string).length > 0
-        ? JSON.parse(petLocationStr)
-        : petLocationStr;
-  } catch (err) {
-    console.error("Failed to parse petLocation:", err);
-  }
   const router = useRouter();
-
+  const [petLocation, setPetLocation] = useState<PetLocation | null>(null);
   const [showThankYouBox, setShowThankYouBox] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
+  useEffect(() => {
+    if (petLocationStr) {
+      try {
+        const location = typeof petLocationStr === 'string' ? JSON.parse(petLocationStr) : petLocationStr;
+        setPetLocation(location);
+      } catch (error) {
+        console.error("Failed to parse petLocation:", error);
+        setPetLocation(null);
+      }
+    } else {
+      setPetLocation(null);
+    }
+  }, [petLocationStr]);
+
+  
   const petSexIconMap = {
     Male: <IconGenderMale className="inline-block ml-2 text-blue-500" />,
     Female: <IconGenderFemale className="inline-block ml-2 text-pink-500" />,
@@ -139,7 +145,11 @@ const HomePage = ({ searchParams }: IParams) => {
           <p className="text-lg text-gray-600">
             Location: Latitude {petLocation.latitude}, Longitude {petLocation.longitude}
           </p>
-          <MapTilerMap latitude={petLocation.latitude} longitude={petLocation.longitude} />
+          <MapTilerMap
+            key={`${petLocation.latitude}-${petLocation.longitude}`} // Ensure map updates with new location
+            latitude={petLocation.latitude}
+            longitude={petLocation.longitude}
+          />
         </div>
       ) : (
         <p>No location available.</p>
@@ -188,6 +198,7 @@ const HomePage = ({ searchParams }: IParams) => {
         <Image
           src={petImage}
           alt={petName}
+          key={petImage} // Ensure image updates with new petImage
           width={400}
           height={400}
           className="rounded-lg"
