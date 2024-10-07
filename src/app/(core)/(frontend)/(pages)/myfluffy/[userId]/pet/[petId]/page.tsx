@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, FormEvent, ChangeEvent } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Heart, Trash2 } from "lucide-react";
@@ -11,24 +11,27 @@ interface IParams {
     petId: string;
     petImage: string;
     petName: string;
+    petReward?: number;
     petDescription: string;
     petSex: "Male" | "Female";
-    petAge: string;
-    petType: string;
-    petStatus: "Missing" | "Reported" | "Returned"; // Added status field
-    petContact?: string; // Available only for Reported status
-    petLocation?: string; // Available only for Reported status
+    petAge: number;
+    petSpecies: string;
+    petStatus: "MISSING" | "REPORTED" | "RETURNED"; 
+    petContact?: string; 
+    petLocation?: string; 
   };
 }
 
 const HomePage = ({ searchParams }: IParams) => {
   const {
-    petName,
+    petId,
     petImage,
+    petName,
     petDescription,
     petSex,
     petAge,
-    petType,
+    petSpecies,
+    petReward,
     petStatus,
     petContact,
     petLocation,
@@ -51,18 +54,27 @@ const HomePage = ({ searchParams }: IParams) => {
     }, 3000);
   };
 
-  const handleDelete = () => {
-
+  const handleDelete = async () => {
     const confirmed = window.confirm(
       `Are you sure you want to delete the post for ${petName}?`
     );
     if (confirmed) {
       setIsDeleting(true);
-      setTimeout(() => {
-        alert(`${petName} has been deleted.`);
+      try {
+        const response = await fetch(`/api/posts/${petId}`, {
+          method: "DELETE",
+        });
+        if (response.ok) {
+          alert(`${petName} has been deleted.`);
+          router.push("/");
+        } else {
+          console.error("Failed to delete the post.");
+        }
+      } catch (err) {
+        console.error("Error deleting the post:", err);
+      } finally {
         setIsDeleting(false);
-        router.push("/");
-      }, 2000);
+      }
     }
   };
 
@@ -81,10 +93,10 @@ const HomePage = ({ searchParams }: IParams) => {
           <p className="text-gray-600 text-lg">{petDescription}</p>
           <div className="flex flex-row items-center justify-between">
             <p className="text-gray-600 text-lg">
-              <span className="font-bold">Type:</span> {petType}
+              <span className="font-bold">Type:</span> {petSpecies}
             </p>
             <p className="text-gray-600 text-lg">
-              <span className="font-bold">Age:</span> {petAge} old
+              <span className="font-bold">Age:</span> {petAge} years old
             </p>
           </div>
         </div>
@@ -148,7 +160,7 @@ const HomePage = ({ searchParams }: IParams) => {
       }}
       className="flex flex-1 flex-col gap-4 items-center justify-center p-20 pt-24"
     >
-      <div className="glassmorphism flex flex-row p-8 gap-6 w-[60rem]">
+      <div className="glassmorphism flex flex-row p-8 gap-6 w-[60rem] relative">
         <Image
           src={petImage}
           alt={petName}
@@ -157,9 +169,9 @@ const HomePage = ({ searchParams }: IParams) => {
           className="rounded-lg"
         />
         {!showThankYouBox &&
-          (petStatus === "Missing"
+          (petStatus === "MISSING"
             ? renderMissingStatus()
-            : petStatus === "Reported"
+            : petStatus === "REPORTED"
             ? renderReportedStatus()
             : renderReturnedStatus())}
         {showThankYouBox && renderThankYouBox()}

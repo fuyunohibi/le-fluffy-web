@@ -13,7 +13,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchPets = async () => {
       try {
-        const res = await fetch("/api/missing");
+        const res = await fetch("/api/pets");
         const data = await res.json();
         if (res.ok) {
           setPets(data.pets);

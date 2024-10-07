@@ -20,11 +20,11 @@ const colorScheme: Record<string, { bg: string; border: string }> = {
 // Function to determine status styling
 const getStatusColor = (status: string) => {
   switch (status) {
-    case "Missing":
+    case "MISSING":
       return "text-red-500"; // Red for Missing status
-    case "Reported":
+    case "REPORTED":
       return "text-yellow-500"; // Yellow for Reported status
-    case "Returned":
+    case "RETURNED":
       return "text-green-500"; // Green for Returned status
     default:
       return "text-gray-500"; // Default gray
@@ -83,7 +83,8 @@ export const ParallaxScrollMyFluffy = ({
                     petDescription: pet.description,
                     petSex: pet.sex,
                     petAge: pet.age,
-                    petType: pet.type,
+                    petSpecies: pet.species,
+                    petReward: pet.reward,
                     petStatus: pet.status,
                     petContact: pet.contact,
                     petLocation: pet.location,
@@ -131,7 +132,8 @@ export const ParallaxScrollMyFluffy = ({
                     petDescription: pet.description,
                     petSex: pet.sex,
                     petAge: pet.age,
-                    petType: pet.type,
+                    petSpecies: pet.species,
+                    petReward: pet.reward,
                     petStatus: pet.status,
                     petContact: pet.contact,
                     petLocation: pet.location,
@@ -179,10 +181,11 @@ export const ParallaxScrollMyFluffy = ({
                     petDescription: pet.description,
                     petSex: pet.sex,
                     petAge: pet.age,
-                    petType: pet.type,
+                    petSpecies: pet.species,
+                    petReward: pet.reward,
                     petStatus: pet.status,
                     petContact: pet.contact,
-                    petLocation: pet.location
+                    petLocation: pet.location,
                   },
                 }}
               >

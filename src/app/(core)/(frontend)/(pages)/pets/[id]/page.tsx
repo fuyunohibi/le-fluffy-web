@@ -42,6 +42,7 @@ const HomePage = ({ searchParams }: IParams) => {
   const [formData, setFormData] = useState<FormData>(defaultFormData);
   const [showThankYouBox, setShowThankYouBox] = useState(false);
   const [selectPosition, setSelectPosition] = useState<Position | null>(null);
+  
   const petSexIconMap = {
     Male: <IconGenderMale className="inline-block ml-2 text-blue-500" />,
     Female: <IconGenderFemale className="inline-block ml-2 text-pink-500" />,
