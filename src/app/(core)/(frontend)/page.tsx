@@ -1,13 +1,44 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ParallaxScroll } from "./components/shared/card/parallax-scroll";
-import MOCK_PETS_DATA from "./constants/mocks/mock-my-fluffy";
+import { PetInfo } from "./types";
 import { CATEGORIES_IMAGES, PET_CATEGORIES } from "./constants";
-import { Heart } from 'lucide-react';
 
 const HomePage = () => {
+  const [pets, setPets] = useState<PetInfo[]>([]); 
+  const [loading, setLoading] = useState(true); 
+
+  useEffect(() => {
+    const fetchPets = async () => {
+      try {
+        const res = await fetch("/api/missing");
+        const data = await res.json();
+        if (res.ok) {
+          setPets(data.pets);
+          console.log(data.pets);
+        } else {
+          console.error("Failed to fetch pets:", data.message);
+        }
+      } catch (err) {
+        console.error("Error fetching pets:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPets();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex flex-1 justify-center items-center h-screen">
+        <p></p>
+      </div>
+    );
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0.0, y: 40 }}
@@ -20,12 +51,12 @@ const HomePage = () => {
       className="flex flex-1 flex-col gap-4 items-center justify-center p-20 pt-24"
     >
       <h1 className="text-4xl font-bold text-center mb-8 text-black">
-        Where's My Fluffy?
+        Where&apos;s My Fluffy?
       </h1>
       <p className="text-xl font-extrabold text-black">Categories</p>
       <div className="flex justify-center items-center pb-6">
         {CATEGORIES_IMAGES.map((image, idx) => {
-          let petType = PET_CATEGORIES[idx];
+          const petType = PET_CATEGORIES[idx];
           let colorClasses;
 
           switch (petType) {
@@ -81,7 +112,7 @@ const HomePage = () => {
         })}
       </div>
 
-      <ParallaxScroll pets={MOCK_PETS_DATA} />
+      <ParallaxScroll pets={pets} />
     </motion.div>
   );
 };

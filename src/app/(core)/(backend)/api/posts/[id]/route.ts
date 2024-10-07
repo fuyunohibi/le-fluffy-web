@@ -51,7 +51,7 @@ export async function PATCH(req: Request, context: { params: { id: string } }) {
     try {
         const postId = +context.params.id;
         const {
-            name, species, breed, sex, description, reward, photo
+            name, species, breed, sex, description, reward, photo, status, age
         } = await req.json();
 
         // Check if the post exists before attempting to update
@@ -73,7 +73,9 @@ export async function PATCH(req: Request, context: { params: { id: string } }) {
                 sex: sex ?? post.sex,
                 description: description ?? post.description,
                 reward: reward ?? post.reward,
-                photo: photo ?? post.photo
+                photo: photo ?? post.photo,
+                status: status ?? post.status,
+                age: age ?? post.age
             }
         });
 

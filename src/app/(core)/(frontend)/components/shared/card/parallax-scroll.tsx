@@ -61,18 +61,18 @@ export const ParallaxScroll = ({
                   pathname: `/pets/${pet.id}`,
                   query: {
                     petId: pet.id,
-                    petImage: pet.image,
+                    petImage: pet.photo,
                     petName: pet.name,
                     petDescription: pet.description,
                     petSex: pet.sex,
                     petAge: pet.age,
-                    petType: pet.type,
-                    petRewards: pet.rewards,
+                    petSpecies: pet.species,
+                    petReward: pet.reward,
                   },
                 }}
               >
                 <Image
-                  src={pet.image}
+                  src={pet.photo}
                   className="h-80 w-full object-cover object-left-top rounded-lg mb-4"
                   height="400"
                   width="400"
@@ -103,18 +103,18 @@ export const ParallaxScroll = ({
                   pathname: `/pets/${pet.id}`,
                   query: {
                     petId: pet.id,
-                    petImage: pet.image,
+                    petImage: pet.photo,
                     petName: pet.name,
                     petDescription: pet.description,
                     petSex: pet.sex,
                     petAge: pet.age,
-                    petType: pet.type,
-                    petRewards: pet.rewards,
+                    petSpecies: pet.species,
+                    petReward: pet.reward,
                   },
                 }}
               >
               <Image
-                src={pet.image}
+                src={pet.photo}
                 className="h-80 w-full object-cover object-left-top rounded-lg mb-4"
                 height="400"
                 width="400"
@@ -145,18 +145,18 @@ export const ParallaxScroll = ({
                   pathname: `/pets/${pet.id}`,
                   query: {
                     petId: pet.id,
-                    petImage: pet.image,
+                    petImage: pet.photo,
                     petName: pet.name,
                     petDescription: pet.description,
                     petSex: pet.sex,
                     petAge: pet.age,
-                    petType: pet.type,
-                    petRewards: pet.rewards,
+                    petSpecies: pet.species,
+                    petReward: pet.reward,
                   },
                 }}
               >
               <Image
-                src={pet.image}
+                src={pet.photo}
                 className="h-80 w-full object-cover object-left-top rounded-lg mb-4"
                 height="400"
                 width="400"

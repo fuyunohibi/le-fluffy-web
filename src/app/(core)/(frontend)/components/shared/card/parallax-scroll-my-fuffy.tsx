@@ -78,7 +78,7 @@ export const ParallaxScrollMyFluffy = ({
                     pathname: `/myfluffy/${userId}/pet/${pet.id}`,
                   query: {
                     petId: pet.id,
-                    petImage: pet.image,
+                    petImage: pet.photo,
                     petName: pet.name,
                     petDescription: pet.description,
                     petSex: pet.sex,
@@ -91,7 +91,7 @@ export const ParallaxScrollMyFluffy = ({
                 }}
               >
                 <Image
-                  src={pet.image}
+                  src={pet.photo}
                   className="h-80 w-full object-cover object-left-top rounded-lg mb-4"
                   height="400"
                   width="400"
@@ -126,7 +126,7 @@ export const ParallaxScrollMyFluffy = ({
                     pathname: `/myfluffy/${userId}/pet/${pet.id}`,
                   query: {
                     petId: pet.id,
-                    petImage: pet.image,
+                    petImage: pet.photo,
                     petName: pet.name,
                     petDescription: pet.description,
                     petSex: pet.sex,
@@ -139,7 +139,7 @@ export const ParallaxScrollMyFluffy = ({
                 }}
               >
                 <Image
-                  src={pet.image}
+                  src={pet.photo}
                   className="h-80 w-full object-cover object-left-top rounded-lg mb-4"
                   height="400"
                   width="400"
@@ -174,7 +174,7 @@ export const ParallaxScrollMyFluffy = ({
                   pathname: `/myfluffy/${userId}/pet/${pet.id}`,
                   query: {
                     petId: pet.id,
-                    petImage: pet.image,
+                    petImage: pet.photo,
                     petName: pet.name,
                     petDescription: pet.description,
                     petSex: pet.sex,
@@ -187,7 +187,7 @@ export const ParallaxScrollMyFluffy = ({
                 }}
               >
                 <Image
-                  src={pet.image}
+                  src={pet.photo}
                   className="h-80 w-full object-cover object-left-top rounded-lg mb-4"
                   height="400"
                   width="400"

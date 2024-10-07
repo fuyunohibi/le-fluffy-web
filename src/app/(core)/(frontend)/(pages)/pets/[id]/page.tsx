@@ -16,8 +16,8 @@ interface IParams {
     petDescription: string;
     petSex: "Male" | "Female";
     petAge: string;
-    petType: string;
-    petRewards: string;
+    petSpecies: string;
+    petReward: number;
   };
 }
 
@@ -33,7 +33,7 @@ const defaultFormData: FormData = {
 
 
 const HomePage = ({ searchParams }: IParams) => {
-  const { petName, petImage, petDescription, petSex, petAge, petType, petRewards } =
+  const { petName, petImage, petDescription, petSex, petAge, petSpecies, petReward } =
     searchParams;
 
   const router = useRouter();
@@ -110,7 +110,7 @@ const HomePage = ({ searchParams }: IParams) => {
     <div className="flex flex-col items-center justify-center p-8 bg-green-100 border border-green-500 rounded-lg">
       <h1 className="text-4xl font-bold text-green-600">Thank You for Helping!</h1>
       <p className="text-lg text-gray-600 mt-4">
-        We’ve received your information. We'll contact you at{" "}
+        We’ve received your information. We&apos;ll contact you at{" "}
         <strong>{formData.contact}</strong> and meet at{" "}
         <strong>{formData.location}</strong>.
       </p>
@@ -128,7 +128,7 @@ const HomePage = ({ searchParams }: IParams) => {
         <p className="text-gray-600 text-lg">{petDescription}</p>
         <div className="flex flex-row items-center justify-between">
           <p className="text-gray-600 text-lg">
-            <span className="font-bold">Type:</span> {petType}
+            <span className="font-bold">Type:</span> {petSpecies}
           </p>
           <p className="text-gray-600 text-lg">
             <span className="font-bold">Age:</span> {petAge} old
@@ -136,7 +136,7 @@ const HomePage = ({ searchParams }: IParams) => {
         </div>
         <div>
           <p className="text-gray-600 text-lg">
-            <span className="font-bold">Rewards:</span> {petRewards}
+            <span className="font-bold">Rewards:</span> {petReward}
           </p>
         </div>
       </div>

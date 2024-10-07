@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import Notification from '../../components/shared/notification/notification';
 import CheckIcon from '../../components/shared/icon/check-icon';
@@ -10,7 +10,7 @@ interface FormData {
     name: string;
     description: string;
     sex: string;
-    age: string;
+    age: number;
     type: string;
     reward?: number;
 }
@@ -20,11 +20,10 @@ const defaultFormData: FormData = {
   name: "",
   description: "",
   sex: "",
-  age: "",
+  age: 0.0,
   type: "",
   reward: 0.0
 };
-
 
 const PostingPage: React.FC = () => {
     const [formData, setFormData] = useState<FormData>(defaultFormData);
@@ -33,10 +32,24 @@ const PostingPage: React.FC = () => {
 
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value,
-        });
+
+        // Ensure that 'age' and 'reward' are converted to numbers
+        if (name === 'age') {
+            setFormData({
+                ...formData,
+                age: parseFloat(value) || 0,  // Parse age as float
+            });
+        } else if (name === 'reward') {
+            setFormData({
+                ...formData,
+                reward: parseFloat(value) || 0,  // Parse reward as float
+            });
+        } else {
+            setFormData({
+                ...formData,
+                [name]: value,
+            });
+        }
     };
 
     const handleSubmit =  async (e: FormEvent) => {
@@ -52,18 +65,20 @@ const PostingPage: React.FC = () => {
                     name: formData.name,
                     species: formData.type, // Assuming 'type' is species
                     sex: formData.sex,
+                    age: formData.age,  // Ensure age is passed as number
                     description: formData.description,
-                    reward: parseFloat(formData.reward ? formData.reward.toString() : "0.0"), // You can adjust this field
+                    reward: formData.reward,  // Ensure reward is passed as number
                     photo: formData.image,
+                    status: "MISSING", // Default status
                     userId: 1, // Replace this with the actual user ID
                 }),
             });
-            setFormData(defaultFormData);
-    
+
             if (response.ok) {
-                console.log('Data: ', response.json())
+                console.log('Data: ', await response.json());
                 setNotification(true);
-        
+                setFormData(defaultFormData);  // Reset form data
+
                 setTimeout(() => {
                   setNotification(false);
                 }, 3000);
@@ -160,7 +175,8 @@ const PostingPage: React.FC = () => {
                     <div className="mb-4">
                         <label htmlFor="age" className="block text-sm font-medium text-gray-600">Age</label>
                         <input
-                            type="text"
+                            type="number"
+                            step="any"
                             name="age"
                             id="age"
                             value={formData.age}
@@ -168,7 +184,7 @@ const PostingPage: React.FC = () => {
                             className="w-full px-4 py-2 mt-1 rounded-md 
                             focus:border-blue-500 focus:ring focus:ring-blue-200
                             border-none bg-gray-100"
-                            placeholder="2.5 years"
+                            placeholder="2.5"
                             required
                         />
                     </div>
@@ -190,12 +206,12 @@ const PostingPage: React.FC = () => {
                     </div>
 
                     <div className="mb-6">
-                        <label htmlFor="type" className="block text-sm font-medium text-gray-600">Reward</label>
+                        <label htmlFor="reward" className="block text-sm font-medium text-gray-600">Reward</label>
                         <input
                             type="number"
                             step="any"
                             name="reward"
-                            id="type"
+                            id="reward"
                             min="0"
                             value={formData.reward}
                             onChange={handleChange}
@@ -217,7 +233,6 @@ const PostingPage: React.FC = () => {
             <Notification visible={notification} icon={<CheckIcon/>}/>
             <FailedNotification visible={failedNotification} icon={<XMarkIcon/>}/>
         </section>
-        
     );
 };
 

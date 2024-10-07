@@ -1,18 +1,15 @@
-import NextAuth from "next-auth";
-
 export interface PetInfo {
-  rewards: string | number | boolean | readonly string[] | readonly number[] | readonly boolean[] | null | undefined;
+  reward: number;
   contact: string | number | boolean | readonly string[] | readonly number[] | readonly boolean[] | null | undefined;
   location: string | number | boolean | readonly string[] | readonly number[] | readonly boolean[] | null | undefined;
   status: string;
-  status(status: any): string | undefined;
   id: string;
-  image: string;
+  photo: string;
   name: string;
   description: string;
   sex: "Male" | "Female";
-  age: string;
-  type: string;
+  age: number;
+  species: string;
 }
 
 export interface Position {

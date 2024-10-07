@@ -12,7 +12,7 @@ export async function POST(req: Request) {
 
     const userId = parseInt(session.user.id);
 
-    const { name, species, breed, sex, description, reward, photo } =
+    const { name, species, breed, sex, description, reward, photo, status, age } =
       await req.json();
 
     // Create the post without the location field
@@ -25,6 +25,8 @@ export async function POST(req: Request) {
         description,
         reward,
         photo,
+        status: status ?? 'MISSING',
+        age,
         userId,
       },
     });
