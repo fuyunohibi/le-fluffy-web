@@ -28,7 +28,7 @@ interface IParams {
   };
 }
 
-const HomePage = ({ searchParams }: IParams) => {
+const MyFluffyInformationPage = ({ searchParams }: IParams) => {
   const {
     petId,
     petImage,
@@ -273,7 +273,7 @@ const HomePage = ({ searchParams }: IParams) => {
           key={petImage} // Ensure image updates with new petImage
           width={400}
           height={400}
-          className="rounded-lg"
+          className="rounded-lg object-cover"
         />
         {!showThankYouBox &&
           (petStatus === "MISSING"
@@ -294,4 +294,4 @@ const HomePage = ({ searchParams }: IParams) => {
   );
 };
 
-export default HomePage;
+export default MyFluffyInformationPage;

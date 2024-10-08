@@ -76,7 +76,6 @@ const PostingPage: React.FC = () => {
           reward: formDataToSubmit.reward,
           photo: formDataToSubmit.image,
           status: "MISSING",
-          userId: 1,
         }),
       });
 
@@ -104,7 +103,7 @@ const PostingPage: React.FC = () => {
   };
 
   return (
-    <section className="min-h-screen flex justify-center items-center ">
+    <section className="min-h-screen flex justify-center items-center pt-12">
       <BackgroundGradient className="bg-white p-10 rounded-3xl shadow-lg w-[60rem] mx-auto">
         <div className="mb-6 text-center">
           <h1 className="text-4xl font-extrabold text-gray-800">

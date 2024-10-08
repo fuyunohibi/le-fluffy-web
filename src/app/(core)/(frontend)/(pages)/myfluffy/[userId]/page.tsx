@@ -5,17 +5,16 @@ import { motion } from "framer-motion";
 import { ParallaxScrollMyFluffy } from "../../../components/shared/card/parallax-scroll-my-fuffy";
 import { PetInfo } from "../../../types";
 
-const HomePage = () => {
+const MyFluffyPage = () => {
   const [pets, setPets] = useState<PetInfo[]>([]);
   const [loading, setLoading] = useState(true);
-  const { data: session, status } = useSession(); 
+  const { data: session, status } = useSession();
 
   useEffect(() => {
-    
     if (status === "authenticated") {
       const fetchPets = async () => {
         try {
-          const userId = session?.user.id;  
+          const userId = session?.user.id;
           const res = await fetch(`/api/pets/${userId}`);
           const data = await res.json();
           if (res.ok && data.pets) {
@@ -36,11 +35,11 @@ const HomePage = () => {
   }, [session, status]);
 
   if (loading) {
-    return <div></div>; 
+    return <div></div>;
   }
 
   if (!session) {
-    return <div>Please log in to view your pets</div>; 
+    return <div>Please log in to view your pets</div>;
   }
 
   return (
@@ -63,4 +62,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default MyFluffyPage;

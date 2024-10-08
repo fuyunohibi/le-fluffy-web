@@ -154,7 +154,7 @@ const PetInformationPage = ({ searchParams }: IParams) => {
           {petSexIconMap[petSex] || null}
         </h1>
         <p className="text-gray-600 text-lg">{petDescription}</p>
-        <div className="flex flex-row items-center justify-between">
+        <div className="flex flex-row items-center justify-between space-x-4">
           <p className="text-gray-600 text-lg">
             <span className="font-bold">Type:</span> {petSpecies}
           </p>
@@ -230,7 +230,7 @@ const PetInformationPage = ({ searchParams }: IParams) => {
           alt={petName}
           width={400}
           height={400}
-          className="rounded-lg"
+          className="rounded-lg object-cover"
         />
         {!showContactForm && !showThankYouBox
           ? renderPetInformationForm()
